@@ -62,7 +62,8 @@ var solutions = [
 function pickWord(){
     document.getElementById("answer").innerHTML =  ""
     currentSolution = solutions[Math.floor(Math.random()*solutions.length)].name
-    numUnsolved = currentSolution.length - 1
+    numUnsolved = currentSolution.length - (currentSolution.split(" ").length - 1)
+   
     console.log(numUnsolved)
     console.log(currentSolution.length)
     console.log(currentSolution)
