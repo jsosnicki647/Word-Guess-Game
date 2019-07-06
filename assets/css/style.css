@@ -1,0 +1,47 @@
+#game-window{
+    max-width: 600px;
+    background: black;
+    color: white;
+    padding: 0;
+    margin-top: 15px;
+    
+}
+
+#game-content{
+    background: black;
+    color: white;
+    padding: 10px;
+}
+
+#answer{
+    color: white;
+    padding-top: 50px;
+    font-size: x-large;
+}
+
+#hint{
+    color: white;
+    padding-top: 10px;
+    font-size: smaller;
+}
+
+#guesses-remaining{
+    padding-top: 10px;
+}
+
+body{
+    background-image: url(../../assets/images/background.jpg);
+    background-size: cover; 
+    background-repeat: no-repeat;
+}
+
+h1{
+    font-family: fantasy;
+    color: white;
+    background: black;
+}
+
+img{
+    width: 26%;
+}
+
