@@ -8,8 +8,6 @@ var incorrectKeyStrokes = []
 var correctKeyStrokes = []
 var isContinue
 var currentSolution
-
-
 var solutions = [
     {
         name: "EUGENE KRABS",
@@ -58,17 +56,11 @@ var solutions = [
     }
 ]
 
-// selects word for the game //
+// selects word for the game and creates placeholder array //
 function pickWord(){
-    document.getElementById("answer").innerHTML =  ""
     currentSolution = solutions[Math.floor(Math.random()*solutions.length)].name
     numUnsolved = currentSolution.length - (currentSolution.split(" ").length - 1)
    
-    console.log(numUnsolved)
-    console.log(currentSolution.length)
-    console.log(currentSolution)
-
-    
     for (i = 0; i < currentSolution.length; i++){
         
         if(currentSolution.charAt(i) == " "){
@@ -82,8 +74,7 @@ function pickWord(){
     }
 }
 
-pickWord()
-
+// asks user if they would like to play again //
 function replay(){
     answerPlaceholder = []
     document.getElementById("ans-img").src = solutions[findWithAttr(solutions, "name", currentSolution)].pic
@@ -91,7 +82,8 @@ function replay(){
     document.getElementById("hint").innerText = ""
     setTimeout(function(){
         isContinue = confirm("Play again?")
-        // checks if user has chosen to continue //
+
+        // checks if user has chosen to continue and resets values //
         if(isContinue){
             guessesRemaining = 5
             document.getElementById("guesses-remaining").innerHTML = "Guesses Remaining: " + guessesRemaining
@@ -107,9 +99,10 @@ function replay(){
             alert("bye );")
             window.close()
         }
-    }, 1000)
+    }, 100)
 }
 
+// returns index of element based on attribute value //
 function findWithAttr(array, attr, value) {
     for(var i = 0; i < array.length; i += 1) {
         if(array[i][attr] === value) {
@@ -119,13 +112,16 @@ function findWithAttr(array, attr, value) {
     return -1;
 }
 
+pickWord()
+
 $(document).keypress(function(e){
     var selectedKey = String.fromCharCode(e.which).toUpperCase()
-    console.log(selectedKey)
+
+    // checks if key was already selected or if the space bar was selected //
     if(incorrectKeyStrokes.indexOf(selectedKey) == -1 && correctKeyStrokes.indexOf(selectedKey) == -1 && selectedKey != " "){    
         for(var i = 0; i < currentSolution.length; i++){
-        // checks if the selected key is part of the solution //
-            
+
+            // checks if the selected key is part of the solution //
             if(selectedKey == currentSolution[i]){
                 answerPlaceholder[i] = selectedKey
                 numUnsolved--
@@ -139,24 +135,29 @@ $(document).keypress(function(e){
         }
 
         document.getElementById("answer").innerHTML = answerPlaceholder.join("")
+        
         // checks if the selected key does not match with any letters in the solution //
         if(isGuessCorrect.indexOf(true) == -1){
             incorrectKeyStrokes.push(selectedKey)
             document.getElementById("key-strokes").innerHTML = "Already Guessed: " + incorrectKeyStrokes.join(", ")
             guessesRemaining--
             document.getElementById("guesses-remaining").innerHTML = "Guesses Remaining: " + guessesRemaining
+            
             // checks if no guesses are remaining to ask user to play again //
             if(guessesRemaining == 0){
-                
+                $(document).ready(function(){
                 alert("You lost. :(")
                 replay()
+                })
             }
+
             // checks if there is one guess remaining and provides hint //
             if(guessesRemaining == 1){
                 document.getElementById("hint").innerHTML = "hint: " + solutions[findWithAttr(solutions, "name", currentSolution)].hint
             }
         }
         else{
+            // checks if the answer has been solved //
             if(numUnsolved == 0){
                 $(document).ready(function(){
                     alert("Nice!")
@@ -164,8 +165,7 @@ $(document).keypress(function(e){
                 })
             }
         }    
-    
-        
+
         isGuessCorrect = []
     }
 
