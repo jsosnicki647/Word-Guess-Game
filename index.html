@@ -11,6 +11,15 @@
     
 </head>
 <body id="body">
+<audio id="hi">
+    <source src = "assets/sound/spongebob-hi-how-are-ya-.mp3" type="audio/mp3">
+</audio>
+<audio id="win">
+    <source src = "assets/sound/victoryscreech.mp3" type="audio/mp3">
+</audio>
+<audio id="loss">
+    <source src = "assets/sound/spongebob-disappointed-sound-effect.mp3" type="audio/mp3">
+</audio>
     <div class="text-center">
         <img class="img-fluid rounded" src="assets/images/title.png">
     </div>
@@ -23,8 +32,11 @@
             <div class="row">
                 <div class="col col-md-8 offset-md-2">
                     <div id="wins-losses">
-                        Can you guess the Spongebob Character? Press any key to start!
-                    </div>                       
+                        Press any key to start!
+                    </div>
+                    <div>
+                        Can you guess the Spongebob character?
+                    </div>
                     <div id="guesses-remaining">Guesses Remaining: 5</div>
                     <div id="key-strokes"></div>
                     <div class="row">
@@ -38,7 +50,7 @@
             </div>
         </div>
     </div>
-<script src="assets/javascript/game-object.js"></script>
+<script src="assets/javascript/game.js"></script>
 
 </body>
 </html>
