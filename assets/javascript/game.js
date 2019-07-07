@@ -147,7 +147,9 @@ var game = {
         document.getElementById("wins-losses").innerHTML = "Wins: " + this.wins + (" | Losses: ") + this.losses
     }
 }
-
+document.getElementById("game-window").addEventListener("click", function() {
+  $("#game-window").focus()
+});
 $(document).keypress(function(k){
     if(game.started == false){
         document.getElementById("hi").play();
