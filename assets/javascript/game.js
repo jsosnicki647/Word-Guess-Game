@@ -57,7 +57,6 @@ var game = {
     ],
     pickWord: function(){
         this.currentSolution = this.solutions[Math.floor(Math.random()*this.solutions.length)].name
-        console.log(this.currentSolution)
         this.numUnsolved = this.currentSolution.length - (this.currentSolution.split(" ").length - 1)
         for (i = 0; i < this.currentSolution.length; i++){
             if(this.currentSolution.charAt(i) == " "){
@@ -112,8 +111,6 @@ var game = {
                 }
             }
         }
-        console.log("correct: " + game.correctKeyStrokes)
-        console.log("incorrect: " + game.incorrectKeyStrokes)
     },
     giveHint: function(){
         document.getElementById("hint").innerText = "hint: " + this.solutions[this.findWithAttr(this.solutions, "name", this.currentSolution)].hint
@@ -163,7 +160,6 @@ $(document).keypress(function(k){
         if(game.guessesRemaining == 1){
             game.giveHint()
         }
-        console.log("numUnsolved: " + game.numUnsolved)
         if(game.guessesRemaining == 0 || game.numUnsolved == 0){
             document.getElementById("hint").innerHTML = ""
             document.getElementById("answer").innerHTML = "Answer: " + game.currentSolution
