@@ -1,7 +1,7 @@
 var game = {
     answerPlaceholder: [],
     currentSolution: "",
-    numUnsolved: 0,
+    numUnsolved: 1,
     guessesRemaining: 5,
     incorrectKeyStrokes: [],
     correctKeyStrokes: [],
@@ -102,7 +102,7 @@ var game = {
                     document.getElementById("answer").innerText = this.answerPlaceholder.join(" ")
                 }
                 else{
-                    if(i == this.currentSolution.length - 1 && this.correctKeyStrokes.indexOf(k) == -1){
+                    if(i == this.currentSolution.length - 1 && this.correctKeyStrokes.indexOf(k) == -1 && this.guessesRemaining > 0){
                         this.incorrectKeyStrokes.push(k)
                         this.guessesRemaining--
                         document.getElementById("guesses-remaining").innerText = "Guesses Remaining: " + this.guessesRemaining
@@ -138,37 +138,36 @@ var game = {
             this.wins++
             this.updateScore()
             setTimeout(function(){
-                alert("You Won! :)")
+                alert("You Won! :]")
                 game.replay()
-            },7000)
+            },4000)
         }
     },
     updateScore: function(){
         document.getElementById("wins-losses").innerHTML = "Wins: " + this.wins + (" | Losses: ") + this.losses
     }
 }
-document.getElementById("game-window").addEventListener("click", function() {
-  $("#game-window").focus()
-});
+
 $(document).keypress(function(k){
-    if(game.started == false){
-        document.getElementById("hi").play();
-        game.started = true
-        game.updateScore()
-        game.play()
-    }
-    else{
-        game.storeKeyStroke(String.fromCharCode(k.which).toUpperCase())
-        if(game.guessesRemaining == 1){
-            game.giveHint()
+    if(game.guessesRemaining != 0 && game.numUnsolved != 0){
+        if(game.started == false){
+            document.getElementById("hi").play()
+            game.started = true
+            game.updateScore()
+            game.play()
         }
-        if(game.guessesRemaining == 0 || game.numUnsolved == 0){
-            document.getElementById("hint").innerHTML = ""
-            document.getElementById("answer").innerHTML = "Answer: " + game.currentSolution
-            document.getElementById("ans-img").src = game.solutions[game.findWithAttr(game.solutions, "name", game.currentSolution)].pic
-            game.gameEnd()
+        else{
+            game.storeKeyStroke(String.fromCharCode(k.which).toUpperCase())
+            if(game.guessesRemaining == 1){
+                game.giveHint()
+            }
+            if(game.guessesRemaining == 0 || game.numUnsolved == 0){
+                document.getElementById("hint").innerHTML = ""
+                document.getElementById("answer").innerHTML = "Answer: " + game.currentSolution
+                document.getElementById("ans-img").src = game.solutions[game.findWithAttr(game.solutions, "name", game.currentSolution)].pic
+                game.gameEnd()
+            }
         }
-        
     }
 })
 
