@@ -125,7 +125,6 @@ var game = {
     }
 }
 
-
 $(document).keypress(function(k){
     if(game.started == false){
         game.started = true
