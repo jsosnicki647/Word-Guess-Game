@@ -3,10 +3,8 @@ var game = {
     currentSolution: "",
     numUnsolved: 0,
     guessesRemaining: 5,
-    isGuessCorrect: [],
     incorrectKeyStrokes: [],
     correctKeyStrokes: [],
-    isContinue: true,
     wins: 0,
     losses: 0,
     started: false,
@@ -175,79 +173,4 @@ $(document).keypress(function(k){
         
     }
 })
-
-// // returns index of element based on attribute value //
-// function findWithAttr(array, attr, value) {
-//     for(var i = 0; i < array.length; i += 1) {
-//         if(array[i][attr] === value) {
-//             return i;
-//         }
-//     }
-//     return -1;
-// }
-
-// $(document).keypress(function(e){
-//     pickWord()
-// })
-
-// function startGame(){
-
-// $(document).keypress(function(e){
-//     var selectedKey = String.fromCharCode(e.which).toUpperCase()
-
-//     // checks if key was already selected or if the space bar was selected //
-//     if(incorrectKeyStrokes.indexOf(selectedKey) == -1 && correctKeyStrokes.indexOf(selectedKey) == -1 && selectedKey != " "){    
-//         for(var i = 0; i < currentSolution.length; i++){
-
-//             // checks if the selected key is part of the solution //
-//             if(selectedKey == currentSolution[i]){
-//                 answerPlaceholder[i] = selectedKey
-//                 numUnsolved--
-//                 console.log(numUnsolved)
-//                 isGuessCorrect.push(true)
-//                 correctKeyStrokes.push(selectedKey)
-//             }
-//             else{
-//                 isGuessCorrect.push(false)
-//             }
-//         }
-
-//         document.getElementById("answer").innerHTML = answerPlaceholder.join("")
-        
-//         // checks if the selected key does not match with any letters in the solution //
-//         if(isGuessCorrect.indexOf(true) == -1){
-//             incorrectKeyStrokes.push(selectedKey)
-//             document.getElementById("key-strokes").innerHTML = "Already Guessed: " + incorrectKeyStrokes.join(", ")
-//             guessesRemaining--
-//             document.getElementById("guesses-remaining").innerHTML = "Guesses Remaining: " + guessesRemaining
-            
-//             // checks if no guesses are remaining to ask user to play again //
-//             if(guessesRemaining == 0){
-//                 $(document).ready(function(){
-//                 alert("You lost. :(")
-//                 replay()
-//                 })
-//             }
-
-//             // checks if there is one guess remaining and provides hint //
-//             if(guessesRemaining == 1){
-//                 document.getElementById("hint").innerHTML = "hint: " + solutions[findWithAttr(solutions, "name", currentSolution)].hint
-//             }
-//         }
-//         else{
-//             // checks if the answer has been solved //
-//             if(numUnsolved == 0){
-//                 $(document).ready(function(){
-//                     alert("Nice!")
-//                     replay()
-//                 })
-//             }
-//         }    
-
-//         isGuessCorrect = []
-//     }
-
-// })
-
-// }
 
