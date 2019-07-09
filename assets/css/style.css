@@ -2,15 +2,10 @@
     max-width: 600px;
     background: black;
     color: white;
-    padding: 0;
     margin-top: 15px;
-    
-}
-
-#game-content{
-    background: black;
-    color: white;
-    padding: 10px;
+    margin-bottom: 20px;
+    border: none;
+    max-width: 560px;
 }
 
 #answer{
@@ -22,17 +17,41 @@
 #hint{
     color: white;
     padding-top: 10px;
+    padding-bottom: 20px;
     font-size: smaller;
+    font-style: italic;
 }
 
 #guesses-remaining{
-    padding-top: 10px;
+    padding-left: 15px;
 }
+
+#key-strokes{
+    padding-left: 15px;
+}
+
+#ans-img{
+    border: 0px;
+    max-height: 50%;
+    width: auto;
+    margin-bottom: 20px;
+}
+
+#answer{
+    padding-left: 15px;
+    border: 0px;
+}
+#title{
+    max-width: 420px; 
+    height: auto;
+}
+
 
 body{
     background-image: url(../../assets/images/background.jpg);
     background-size: cover; 
     background-repeat: no-repeat;
+    background-color: black;
 }
 
 h1{
@@ -41,7 +60,21 @@ h1{
     background: black;
 }
 
-img{
-    width: 26%;
-}
 
+ 
+@media only screen and (max-width: 640px){
+    #game-window{
+        min-width: 100%;
+	min-height: 70%;
+	border-bottom-color: black;
+    }
+    body{
+	background-color: black;
+    }
+} 
+
+@media only screen and (max-width: 768px) and (min-width: 641px){
+    #game-window{
+        max-width: 70%;
+    }
+}

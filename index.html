@@ -20,37 +20,48 @@
 <audio id="loss">
     <source src = "assets/sound/spongebob-disappointed-sound-effect.mp3" type="audio/mp3">
 </audio>
-    <div class="text-center">
-        <img class="img-fluid rounded" src="assets/images/title.png">
+    <div id="title" class="container">
+        <img class="img-fluid img-thumbnail" src="assets/images/title.png">
     </div>
 
-    <div id="game-window" class="container">
-        <div class="main-section border border-secondary">
-            <h1 class="text-center">Word-Guess Game</h1>
-        </div>
-        <div id="game-content" class="main-section border border-secondary">
-            <div class="row">
-                <div class="col col-md-8 offset-md-2">
-                    <div id="wins-losses">
-                        Press any key to start!
-                    </div>
-                    <div>
-                        Can you guess the Spongebob character?
-                    </div>
-                    <div id="guesses-remaining">Guesses Remaining: 5</div>
-                    <div id="key-strokes"></div>
-                    <div class="row">
-                        <div class="col col-md-12">
-                            <div id="answer"></div>
-                            <em><div id="hint"></div></em>
-                            <img id="ans-img">
-                        </div>
-                    </div>
-                </div>
+    <div id="game-window" class="container rounded">
+        <h1 class="text-center">Word-Guess Game</h1>
+        <div class="dropdown-divider"></div>
+        <div class="row">
+            <div id="wins-losses" class="offset-lg-1 col offset-md-1 offset-sm-1 offset-xs-1">
+                Press any key to start!
             </div>
         </div>
+        <div class="row">
+            <div class="col offset-lg-1 offset-md-1 offset-sm-1 offset-xs-1">
+                Can you guess the Spongebob character?
+            </div>
+        </div>
+        <div class="row">
+            <div id="guesses-remaining" class="col offset-lg-1 offset-md-1 offset-sm-1 offset-xs-1">
+                Guesses Remaining: 5
+            </div>
+        </div>
+        <div class="row">
+            <div id="key-strokes" class="col offset-lg-1 offset-md-1 offset-sm-1 offset-xs-1">Wrong Guesses: </div>
+        </div>
+        <div class="row">
+            <div id="answer" class="col offset-lg-1 offset-md-1 offset-sm-1 offset-xs-1"></div>
+            
+        </div>
+        <div class="row">
+            <div id="hint" class="col offset-lg-1 offset-md-1 offset-sm-1 offset-xs-1"></div>
+        </div>
+	<div class="row">
+	    <img id="ans-img" class="col-md-6 col-sm-6 offset-md-3 offset-sm-3 rounded float-right"></div>
+    	</div>
+
+    </div>
+    <div class="container">
+        
     </div>
 <script src="assets/javascript/game.js"></script>
 
 </body>
 </html>
+
