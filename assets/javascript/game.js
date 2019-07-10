@@ -97,9 +97,9 @@ var game = {
                         var letterCount = 0
                         letterCount++
                     }
-                    this.numUnsolved = this.numUnsolved - letterCount
-                    this.answerPlaceholder[i] = k
-                    document.getElementById("answer").innerText = this.answerPlaceholder.join(" ")
+                this.numUnsolved = this.numUnsolved - letterCount
+                this.answerPlaceholder[i] = k
+                document.getElementById("answer").innerText = this.answerPlaceholder.join(" ")
                 }
                 else{
                     if(i == this.currentSolution.length - 1 && this.correctKeyStrokes.indexOf(k) == -1 && this.guessesRemaining > 0){

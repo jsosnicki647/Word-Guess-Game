@@ -52,6 +52,7 @@ body{
     background-size: cover; 
     background-repeat: no-repeat;
     background-color: black;
+    min-height: 100vh;
 }
 
 h1{
