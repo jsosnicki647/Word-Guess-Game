@@ -1,5 +1,4 @@
 var game = {
-    answerPlaceholder: [],
     currentSolution: "",
     numUnsolved: 1,
     guessesRemaining: 5,
@@ -57,7 +56,9 @@ var game = {
     ],
     pickWord: function(){
         this.currentSolution = this.solutions[Math.floor(Math.random()*this.solutions.length)].name
+        // determines the number of characters in the currentSolution minus any spaces //
         this.numUnsolved = this.currentSolution.length - (this.currentSolution.split(" ").length - 1)
+        // creates placeholder dashes and underscores for letters in currentSolution //
         for (i = 0; i < this.currentSolution.length; i++){
             var letter = $("<span>")
             if(this.currentSolution.charAt(i) == " "){
@@ -79,7 +80,6 @@ var game = {
         document.getElementById("key-strokes").innerHTML = ""
         this.incorrectKeyStrokes = []
         this.correctKeyStrokes = []
-        this.answerPlaceholder = []
         $(document).ready(this.pickWord())
     },
     replay: function(){
@@ -92,20 +92,22 @@ var game = {
         }
     },
     storeKeyStroke: function(k){
+        // makes sure key was not already pressed //
         if(this.correctKeyStrokes.indexOf(k) == -1 && this.incorrectKeyStrokes.indexOf(k) == -1){
             for(i = 0; i < this.currentSolution.length; i++){
                 if(k == this.currentSolution.charAt(i)){
                     if(this.correctKeyStrokes.indexOf(k) == -1){
                         this.correctKeyStrokes.push(k)
+                        // counts how many times letter appears so numUnsolved is correctly updated later //
                         var letterCount = 0
                         letterCount++
                     }
                     this.numUnsolved = this.numUnsolved - letterCount
                     $("[correct-letter='" + k + "']").text(k)
-                      
-                    
                 }
                 else{
+                    // makes sure that this is the last time through the loop indicating that the keystroke is not in currentSolution //
+                    // guessesRemaining > 0 added to prevent updating once all guesses have been used //
                     if(i == this.currentSolution.length - 1 && this.correctKeyStrokes.indexOf(k) == -1 && this.guessesRemaining > 0){
                         this.incorrectKeyStrokes.push(k)
                         this.guessesRemaining--
@@ -120,6 +122,7 @@ var game = {
     giveHint: function(){
         document.getElementById("hint").innerText = "hint: " + this.solutions[this.findWithAttr(this.solutions, "name", this.currentSolution)].hint
     },
+    // returns the element of an array with a certain attribute value //
     findWithAttr: function(array, attr, value){
         for(var i = 0; i < array.length; i++) {
             if(array[i][attr] === value) {
@@ -131,19 +134,6 @@ var game = {
     gameEnd: function(){
         if(this.guessesRemaining == 0){
             document.getElementById("loss").play()
-            
-            for(i = 0; i<this.currentSolution.length; i++){
-                var letter = this.currentSolution.charAt(i)
-                if(letter != " "){
-                    
-                    $("[correct-letter='" + letter + "']").each(function(){
-                    
-                        if($("[correct-letter='" + letter + "']").text() == " _ "){
-                            $("[correct-letter='" + letter + "']").addClass("incorrect")
-                        }
-                    })
-                }
-            }
             this.losses++
             this.updateScore()
             setTimeout(function(){
@@ -167,7 +157,9 @@ var game = {
 }
 
 $(document).keypress(function(k){
+    // prevents updating if game is already over //
     if(game.guessesRemaining != 0 && game.numUnsolved != 0){
+        // checks if this is the first time playing since load //
         if(game.started == false){
             document.getElementById("hi").play()
             game.started = true
@@ -175,20 +167,23 @@ $(document).keypress(function(k){
             game.play()
         }
         else{
-            game.storeKeyStroke(String.fromCharCode(k.which).toUpperCase())
-            if(game.guessesRemaining == 1){
-                game.giveHint()
-            }
-            if(game.guessesRemaining == 0 || game.numUnsolved == 0){
-                document.getElementById("hint").innerHTML = ""
-                document.getElementById("ans-img").src = game.solutions[game.findWithAttr(game.solutions, "name", game.currentSolution)].pic
-                setTimeout(function(){
-                    document.getElementById("answer").innerHTML = "Answer: " + game.currentSolution
-                },2000)
-                $("#ans-img").fadeIn(3000)
-                game.gameEnd()
+            // excludes spacebar from executing block //
+            if(k.keyCode != 32){
+                game.storeKeyStroke(String.fromCharCode(k.which).toUpperCase())
+                if(game.guessesRemaining == 1){
+                    game.giveHint()
+                }
+                // game is over once either there are no guesses remaining or no unsolved letters remaining //
+                if(game.guessesRemaining == 0 || game.numUnsolved == 0){
+                    document.getElementById("hint").innerHTML = ""
+                    document.getElementById("ans-img").src = game.solutions[game.findWithAttr(game.solutions, "name", game.currentSolution)].pic
+                    setTimeout(function(){
+                        document.getElementById("answer").innerHTML = "Answer: " + game.currentSolution
+                    },2000)
+                    $("#ans-img").fadeIn(3000)
+                    game.gameEnd()
+                }
             }
         }
     }
 })
-
