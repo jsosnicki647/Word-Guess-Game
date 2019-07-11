@@ -59,16 +59,19 @@ var game = {
         this.currentSolution = this.solutions[Math.floor(Math.random()*this.solutions.length)].name
         this.numUnsolved = this.currentSolution.length - (this.currentSolution.split(" ").length - 1)
         for (i = 0; i < this.currentSolution.length; i++){
+            var letter = $("<span>")
             if(this.currentSolution.charAt(i) == " "){
-                this.answerPlaceholder[i] = "-"
+                $(letter).text(" - ")    
             }
             else{
-                this.answerPlaceholder[i] = " _ "
+                $(letter).text(" _ ")
             }
-            document.getElementById("answer").innerHTML = this.answerPlaceholder.join("")
+            $(letter).attr("correct-letter", this.currentSolution.charAt(i))
+            $("#answer").append(letter)
         }
     },
     play: function(){
+        $("#ans-img").css("display","none")
         this.guessesRemaining = 5
         document.getElementById("guesses-remaining").innerHTML = "Guesses Remaining: " + this.guessesRemaining
         document.getElementById("answer").innerHTML = ""
@@ -97,9 +100,10 @@ var game = {
                         var letterCount = 0
                         letterCount++
                     }
-                this.numUnsolved = this.numUnsolved - letterCount
-                this.answerPlaceholder[i] = k
-                document.getElementById("answer").innerText = this.answerPlaceholder.join(" ")
+                    this.numUnsolved = this.numUnsolved - letterCount
+                    $("[correct-letter='" + k + "']").text(k)
+                      
+                    
                 }
                 else{
                     if(i == this.currentSolution.length - 1 && this.correctKeyStrokes.indexOf(k) == -1 && this.guessesRemaining > 0){
@@ -107,6 +111,7 @@ var game = {
                         this.guessesRemaining--
                         document.getElementById("guesses-remaining").innerText = "Guesses Remaining: " + this.guessesRemaining
                         document.getElementById("key-strokes").innerText = "Wrong Guesses: " + this.incorrectKeyStrokes.join(", ")
+                        
                     }
                 }
             }
@@ -126,6 +131,19 @@ var game = {
     gameEnd: function(){
         if(this.guessesRemaining == 0){
             document.getElementById("loss").play()
+            
+            for(i = 0; i<this.currentSolution.length; i++){
+                var letter = this.currentSolution.charAt(i)
+                if(letter != " "){
+                    
+                    $("[correct-letter='" + letter + "']").each(function(){
+                    
+                        if($("[correct-letter='" + letter + "']").text() == " _ "){
+                            $("[correct-letter='" + letter + "']").addClass("incorrect")
+                        }
+                    })
+                }
+            }
             this.losses++
             this.updateScore()
             setTimeout(function(){
@@ -138,7 +156,7 @@ var game = {
             this.wins++
             this.updateScore()
             setTimeout(function(){
-                alert("You Won! :]")
+                alert("You won! :]")
                 game.replay()
             },4000)
         }
@@ -163,8 +181,11 @@ $(document).keypress(function(k){
             }
             if(game.guessesRemaining == 0 || game.numUnsolved == 0){
                 document.getElementById("hint").innerHTML = ""
-                document.getElementById("answer").innerHTML = "Answer: " + game.currentSolution
                 document.getElementById("ans-img").src = game.solutions[game.findWithAttr(game.solutions, "name", game.currentSolution)].pic
+                setTimeout(function(){
+                    document.getElementById("answer").innerHTML = "Answer: " + game.currentSolution
+                },2000)
+                $("#ans-img").fadeIn(3000)
                 game.gameEnd()
             }
         }

@@ -35,6 +35,7 @@
     max-height: 50%;
     width: auto;
     margin-bottom: 20px;
+    display: none;
 }
 
 #answer{
