@@ -1,12 +1,12 @@
 var game = {
-    currentSolution: "",
-    numUnsolved: 1,
-    guessesRemaining: 5,
-    incorrectKeyStrokes: [],
-    correctKeyStrokes: [],
-    wins: 0,
+    currentSolution: "", //the word that needs to be solved
+    numUnsolved: 1, //number of letters that are still unsolved
+    guessesRemaining: 5, //number of guesses user has remaining until game over
+    incorrectKeyStrokes: [], //stores chars that are not in currentSolution
+    correctKeyStrokes: [], //stores chars that are in currentSolution
+    wins: 0, 
     losses: 0,
-    started: false,
+    started: false, //flag if game has started
     solutions: [
         {
             name: "EUGENE KRABS",
@@ -98,8 +98,7 @@ var game = {
                 if(k == this.currentSolution.charAt(i)){
                     if(this.correctKeyStrokes.indexOf(k) == -1){
                         this.correctKeyStrokes.push(k)
-                        // counts how many times letter appears so numUnsolved is correctly updated later //
-                        var letterCount = 0
+                        var letterCount = 0 // counts how many times letter appears so numUnsolved is correctly updated
                         letterCount++
                     }
                     this.numUnsolved = this.numUnsolved - letterCount
@@ -167,7 +166,7 @@ $(document).keypress(function(k){
             game.play()
         }
         else{
-            // excludes spacebar from executing block //
+            // prevents spacebar from executing block //
             if(k.keyCode != 32){
                 game.storeKeyStroke(String.fromCharCode(k.which).toUpperCase())
                 if(game.guessesRemaining == 1){
